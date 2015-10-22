@@ -7,5 +7,4 @@ mod 'mpalmer/logrotate',
     :ref => "v1"
 
 mod 'puppetlabs/stdlib',
-    :git => "https://github.com/puppetlabs/puppetlabs-stdlib",
-    :ref => "4.8.0"
+    :git => "https://github.com/puppetlabs/puppetlabs-stdlib"
