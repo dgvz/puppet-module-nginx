@@ -5,3 +5,7 @@ mod 'mpalmer/libwomble',
 mod 'mpalmer/logrotate',
     :git => "git://github.com/mpalmer/puppet-module-logrotate",
     :ref => "v1"
+
+mod 'puppetlabs/stdlib',
+    :git => "https://github.com/puppetlabs/puppetlabs-stdlib",
+    :ref => "4.8.0"
