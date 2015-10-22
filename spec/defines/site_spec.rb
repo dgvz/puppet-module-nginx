@@ -76,7 +76,7 @@ describe "nginx::site" do
 		it "listens on port 80" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/listen").
-			  with_value("[::]:80 ipv6only=off")
+			  with_value("[::]:80 ")
 		end
 
 		it "sets the rootdir" do
@@ -157,7 +157,7 @@ describe "nginx::site" do
 		it "listens on port 80 in the sslredir server config" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_sslredir_rspec/listen").
-			  with_value("[::]:80 ipv6only=off")
+			  with_value("[::]:80")
 		end
 
 		it "doesn't listen on port 80 in the main vhost" do
@@ -212,7 +212,7 @@ describe "nginx::site" do
 		it "adds the header to the main site" do
 			expect(subject).
 			  to contain_nginx__config("http/site_rspec/add_header_hsts").
-			  with_content('add_header "Strict-Transport-Security max_age=31622400; includeSubDomains";')
+			  with_content('add_header Strict-Transport-Security "max_age=31622400; includeSubDomains";')
 		end
 
 		it "doesn't add the header to the redir site" do
@@ -233,7 +233,7 @@ describe "nginx::site" do
 		it "adds the header with custom max_age to the main site" do
 			expect(subject).
 			  to contain_nginx__config("http/site_rspec/add_header_hsts").
-			  with_content('add_header "Strict-Transport-Security max_age=12345; includeSubDomains";')
+			  with_content('add_header Strict-Transport-Security "max_age=12345; includeSubDomains";')
 		end
 	end
 
@@ -250,7 +250,7 @@ describe "nginx::site" do
 		it "adds the header, sans includeSubDomains, to the main site" do
 			expect(subject).
 			  to contain_nginx__config("http/site_rspec/add_header_hsts").
-			  with_content('add_header "Strict-Transport-Security max_age=31622400";')
+			  with_content('add_header Strict-Transport-Security "max_age=31622400";')
 		end
 	end
 
@@ -307,7 +307,7 @@ describe "nginx::site" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/listen_ssl").
 			  with_param("listen").
-			  with_value("[::]:443 ipv6only=off ssl")
+			  with_value("[::]:443 ssl")
 		end
 
 		it "configures the SSL cert" do
@@ -364,7 +364,7 @@ describe "nginx::site" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/listen_ssl").
 			  with_param("listen").
-			  with_value("[::]:443 ipv6only=off ssl default")
+			  with_value("[::]:443 ssl default ipv6only=off")
 		end
 	end
 
@@ -382,10 +382,10 @@ describe "nginx::site" do
 			  with_group("fred")
 		end
 
-		it "makes the logfiles owned by fred" do
+		it "makes the logfiles file mode set 0640" do
 			expect(subject).
 			  to contain_logrotate__rule("nginx-rspec").
-			  with_create("0640 fred root")
+			  with_create("0640")
 		end
 	end
 end
