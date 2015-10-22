@@ -382,10 +382,10 @@ describe "nginx::site" do
 			  with_group("fred")
 		end
 
-		it "makes the logfiles owned by fred" do
+		it "makes the logfiles file mode set 0640" do
 			expect(subject).
 			  to contain_logrotate__rule("nginx-rspec").
-			  with_create("0640 fred root")
+			  with_create("0640")
 		end
 	end
 end
