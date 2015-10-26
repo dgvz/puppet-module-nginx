@@ -86,6 +86,26 @@ describe "nginx::site" do
 		end
 	end
 
+	context "with auth basic in place" do
+		let(:params) { { :base_dir    => "/home/rspec/sites/rspec",
+		                 :server_name => "rspec.example.com",
+		                 :auth_basic   => "My App",
+		                 :auth_basic_user_file => "/etc/htpasswd",
+		             } }
+
+		it "sets auth_basic to application name" do
+			expect(subject).
+				to contain_nginx__config__parameter("http/site_rspec/auth_basic").
+				with_value("My App")
+		end
+
+		it "sets auth_basic_user_file to file" do
+			expect(subject).
+				to contain_nginx__config__parameter("http/site_rspec/auth_basic_user_file").
+				with_value("/etc/htpasswd")
+		end
+	end
+
 	context "with an array of alt names" do
 		let(:params) { { :base_dir    => "/home/rspec/sites/rspec",
 		                 :server_name => "rspec.example.com",

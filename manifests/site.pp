@@ -120,6 +120,15 @@
 #
 #     This is the permissions on the log files created for this nginx site.
 #
+#  * `auth_basic` (string; optional; default `undef`)
+#
+#     This directive includes testing name and password with HTTP Basic
+#     Authentication.
+#
+#   `auth_basic_user_file` (string, optional, default `undef`
+#
+#     If set to a non-`undef` value, this attribute is interpreted as being
+#     the absolute filename of an htpassed file for the authentication realm
 define nginx::site(
 	$base_dir,
 	$user                    = "root",
@@ -134,7 +143,9 @@ define nginx::site(
 	$ssl_default             = false,
 	$hsts                    = false,
 	$hsts_include_subdomains = true,
-	$log_permissions         = "0640"
+	$log_permissions         = "0640",
+	$auth_basic              = undef,
+	$auth_basic_user_file    = undef
 ) {
 	# Template variables
 	$nginx_site_base_dir = $base_dir
@@ -249,6 +260,20 @@ define nginx::site(
 					undef   => "[::]:443 ssl${ssl_default_opt}",
 					default => "${ssl_ip}:443 ssl${ssl_default_opt}"
 				};
+		}
+	}
+
+	##########################################################################
+	# Include an auth_basic configuration
+
+	if $auth_basic and $auth_basic_user_file {
+		nginx::config::parameter {
+			"${ctx}/auth_basic":
+				value => $auth_basic;
+		}
+		nginx::config::parameter {
+			"${ctx}/auth_basic_user_file":
+				value => $auth_basic_user_file;
 		}
 	}
 
