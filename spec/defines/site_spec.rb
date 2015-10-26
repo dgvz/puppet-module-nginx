@@ -348,7 +348,7 @@ describe "nginx::site" do
 		it "listens on port 80 default" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/listen").
-			  with_value("[::]:80 ipv6only=off default")
+			  with_value("[::]:80  default ipv6only=off")
 		end
 	end
 
