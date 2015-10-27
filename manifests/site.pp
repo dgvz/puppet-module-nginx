@@ -269,7 +269,7 @@ define nginx::site(
 	if $auth_basic and $auth_basic_user_file {
 		nginx::config::parameter {
 			"${ctx}/auth_basic":
-				value => $auth_basic;
+				value => "\"${auth_basic}\"";
 		}
 		nginx::config::parameter {
 			"${ctx}/auth_basic_user_file":

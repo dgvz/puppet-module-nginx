@@ -96,7 +96,7 @@ describe "nginx::site" do
 		it "sets auth_basic to application name" do
 			expect(subject).
 				to contain_nginx__config__parameter("http/site_rspec/auth_basic").
-				with_value("My App")
+				with_value('"My App"')
 		end
 
 		it "sets auth_basic_user_file to file" do
