@@ -54,7 +54,7 @@ describe "nginx::site" do
 
 		it "creates a logs directory" do
 			expect(subject).
-			  to contain_file("/home/rspec/sites/rspec/logs").
+			  to contain_file("/var/log/nginx").
 			  with_ensure("directory").
 			  with_owner("root").
 			  with_group("root").
@@ -64,13 +64,13 @@ describe "nginx::site" do
 		it "logs errors" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/error_log").
-			  with_value("/home/rspec/sites/rspec/logs/error.log info")
+			  with_value("/var/log/nginx/error.log info")
 		end
 
 		it "logs access" do
 			expect(subject).
 			  to contain_nginx__config__parameter("http/site_rspec/access_log").
-			  with_value("/home/rspec/sites/rspec/logs/access.log combined")
+			  with_value("/var/log/nginx/access.log combined")
 		end
 
 		it "listens on port 80" do
@@ -397,7 +397,7 @@ describe "nginx::site" do
 
 		it "makes .../logs owned by fred" do
 			expect(subject).
-			  to contain_file("/home/rspec/sites/rspec/logs").
+			  to contain_file("/var/log/nginx").
 			  with_owner("fred").
 			  with_group("fred")
 		end

@@ -211,7 +211,7 @@ define nginx::site(
 	$nginx_site_user = $user
 
 	file {
-		"${base_dir}/logs":
+		"/var/log/nginx":
 			ensure  => directory,
 			mode    => 0755,
 			owner   => $user,
@@ -232,9 +232,9 @@ define nginx::site(
 
 	nginx::config::parameter {
 		"${ctx}/access_log":
-			value => "${base_dir}/logs/access.log combined";
+			value => "/var/log/nginx/access.log combined";
 		"${ctx}/error_log":
-			value => "${base_dir}/logs/error.log info";
+			value => "/var/log/nginx/error.log info";
 	}
 
 	##########################################################################
