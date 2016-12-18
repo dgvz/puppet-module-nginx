@@ -140,6 +140,12 @@ define nginx::server (
 			value => "256m";
 		"http/client_body_buffer_size":
 			value => "128k";
+		"http/proxy_buffer_size":
+			value => "128k";
+		"http/proxy_buffers":
+			value => "4 256k";
+		"http/proxy_busy_buffers_size":
+			value => "256k";
 		"http/types_hash_max_size":
 			value => "2048";
 		"http/server_names_hash_bucket_size":
