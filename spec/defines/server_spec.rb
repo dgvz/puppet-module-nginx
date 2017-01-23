@@ -28,9 +28,9 @@ describe "nginx::server" do
 			  with_source("puppet:///modules/nginx/etc/nginx/nginx.conf.d/README")
 		end
 		
-		it "installs the nginx-full package" do
+		it "installs the nginx-extras package" do
 			expect(subject).
-			  to contain_package("nginx-full")
+			  to contain_package("nginx-extras")
 		end
 		
 		it "sets up the nginx service" do

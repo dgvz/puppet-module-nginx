@@ -41,7 +41,7 @@ define nginx::server (
 		}
 		"Debian": {
 			if to_i($::operatingsystemrelease) >= 7 {
-				$nginx_server_package = "nginx-full"
+				$nginx_server_package = "nginx-extras"
 			} else {
 				$nginx_server_package = "nginx"
 			}
